@@ -445,6 +445,12 @@ a.external:visited {
   color: #bdf;
 }
 
+a[download] {
+  border: 1px outset black;
+  border-radius: 0.5em;
+  padding: 0.25em 0.5em;
+}
+
 /* Footer */
 
 footer {
