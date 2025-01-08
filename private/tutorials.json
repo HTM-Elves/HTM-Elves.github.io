@@ -12,7 +12,7 @@
   { "name": "03 - Using-CSS-Counters",
     "url": "/Using-CSS-Counters",
     "description": "Mini tutorial to accompany \"Writing Your Own Tutorials\"",
-    "icon": "private/icons/counters.webp"
+    "icon": "private/icons/counters.svg"
   },
   { "name": "03 - Building HTM-Elves from Scratch",
     "_url_": "/Building-From-Scratch",
