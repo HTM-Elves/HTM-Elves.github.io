@@ -1,0 +1,78 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  viewBox="0 0 100 100"
+
+  fill="#900"
+>
+
+  <g
+    transform-origin="50 50"
+  >
+    <circle
+      stroke="#900"
+      stroke-width="6"
+      fill="none"
+      cx="50"
+      cy="50"
+      r="47"
+    />
+    <circle
+      fill="#c66"
+      cx="50"
+      cy="50"
+      r="44"
+    />
+    <rect
+      fill="#ddd"
+      x="25"
+      y="25"
+      width="50"
+      height="50"
+      rx="3"
+    />
+    <circle
+      fill="#900"
+      cx="50"
+      cy="35"
+      r="8"
+    />
+    <path
+      d="
+      M 58 46
+      a 5 10 0 0 1 5 10
+      h -26
+      a 5 10 0 0 1 5 -10
+      a 15 15 0 0 0 16 0
+      "
+    />
+    <path
+      id="star"
+      d="
+      M 39.5 62
+      l -0.5 4.5
+      l 4 -1.5
+      l 0.5 2
+      l -4.25 0.5
+      l 3 3.5
+      l -2 1
+      l -2 -4
+      l -1.5 4
+      l -2 -1
+      l 2.5 -3.5
+      l -4.25 -0.5
+      l 0.5 -2
+      l 4 1.5
+      l -0.25 -4.5
+      "
+    />
+    <use
+      href="#star"
+      x="11.5"
+    />
+    <use
+      href="#star"
+      x="23"
+    />
+  </g>
+</svg>

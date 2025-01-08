@@ -1,17 +1,22 @@
 [
-  { "name": "Getting Started",
-    "url": "#getting-started",
-    "description": "Setting up your work environment",
-    "icon": "public/svg/env.svg"
+  { "name": "What CORS does and does not do",
+    "url": "/CORS",
+    "description": "Using VS Code's debugger to explore the CORS node module",
+    "icon": "private/icons/cors.webp"
   },
-  { "name": "Going Deeper",
-    "url": "#going-deeper",
-    "description": "Exploring the documentation",
-    "icon": "public/svg/tldr.svg"
+  { "name": "User Registration and Log In",
+    "url": "/register-login",
+    "description": "using Express, Mongoose and JSON Web Tokens",
+    "icon": "private/icons/login.svg"
   },
-  { "name": "Pro Tips",
-    "url": "#pro-tips",
-    "description": "Exploiting your unfair advantage",
-    "icon": "public/svg/challenge.svg"
+  { "name": "Pure CSS Games",
+    "url": "/Pure-CSS-Games",
+    "description": "Part 1: Using CSS counters in creative ways",
+    "icon": "private/icons/pure-css-games.webp"
+  },
+  { "name": "Serve a React Frontend with Express",
+    "url": "/vite-react-express",
+    "description": "Build a workflow to use your Express backend to serve the files for your Vite React frontend",
+    "icon": "private/icons/vi-re-ex.webp"
   }
 ]

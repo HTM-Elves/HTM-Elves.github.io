@@ -1,29 +1,3 @@
-;(function useRepositoryNameForTitle() {
-  const locations = Array.from(
-    document.getElementsByClassName("location")
-  )
-
-  let { protocol, hostname, pathname } = location
-  const isLocal = (/(^[0-9.]*$)|localhost/.test(hostname))
-
-  if (protocol === "file:" || isLocal) {
-    // pathname is "/path/to/REPOSITORY-NAME/index.html"
-    hostname = pathname.split("/").slice(-2)[0]
-  } else {
-    // Trim off `.github.io`
-    hostname = hostname.replace(/\..*$/, "")
-  }
-
-  locations.forEach( location => location.innerHTML = hostname)
-
-  const link = `https://github.com/orgs/${hostname}/repositories`
-
-  const repoAnchor = document.querySelector("footer a")
-  repoAnchor.href = link
-})()
-
-
-
 ;(async function generateTutorialLinksFromJSON(){
   const ul = document.getElementById("tutorials")
   const URL = "private/tutorials.json"
