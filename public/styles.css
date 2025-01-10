@@ -32,17 +32,20 @@
   --bright:    #fff;
 
   /* Details */
-  --alert:     #600;
+  --alert:     #800;
   --challenge: #609;
   --env:       #069;
-  --feedback:  #064;
   --note:      #040;
   --pivot:     #03c;
   --question:  #907;
   --solution:  #4069;
+  --story:     #088;
   --tip:       #960;
   --tldr:      #004;
+  --trouble:   #c60;
   --warn:      #630;
+  --github:    #060;
+  --gitbor:    #080;
 
   --min-width: calc(var(--main-width) + var(--menu-width));
 
@@ -656,10 +659,10 @@ div#repo {
     overflow-y: visible;
 
     &.repo {
-      background-color: #060;
+      background-color: var(--github);
       margin-top: 1em;
       padding: 0.5em 0;
-      border: 1px solid #080;
+      border: 1px solid var(--gitbor);
       border-radius: 0.5em;
     }
   }
@@ -775,7 +778,7 @@ details {
   }
 
   &.feedback {
-    --bg-color: var(--feedback);
+    --bg-color: var(--github);
 
     & summary::after {
       content: url("svg/feedback.svg");
@@ -806,6 +809,14 @@ details {
     }
   }
 
+  &.story {
+    --bg-color: var(--story);
+
+    & summary::after {
+      content: url("svg/story.svg");
+    }
+  }
+
   &.tip {
     --bg-color: var(--tip);
 
@@ -819,6 +830,14 @@ details {
 
     & summary::after {
       content: url("svg/tldr.svg");
+    }
+  }
+
+  &.trouble {
+    --bg-color: var(--trouble);
+
+    & summary::after {
+      content: url("svg/trouble.svg");
     }
   }
 
