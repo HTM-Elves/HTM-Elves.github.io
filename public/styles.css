@@ -38,6 +38,7 @@
   --note:      #040;
   --pivot:     #03c;
   --question:  #907;
+  --sandbox:   #a86;
   --solution:  #4069;
   --story:     #088;
   --tip:       #960;
@@ -757,6 +758,14 @@ details {
 
     & summary::after {
       content: url("svg/challenge.svg");
+    }
+  }
+
+  &.sandbox {
+    --bg-color: var(--sandbox);
+
+    & summary::after {
+      content: url("svg/sandbox.svg");
     }
   }
 
