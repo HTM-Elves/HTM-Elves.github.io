@@ -495,7 +495,7 @@ function updateMenuHighlight() {
 
 // Show credits for CC images
 toCredit.forEach( img => {
-  const alt = img.alt
+  const alt = img.dataset.title || img.alt
   let credits = img.dataset.credits
    .replaceAll("<", "&lt;")
    .replaceAll(">", "&gt;")

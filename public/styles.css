@@ -231,6 +231,7 @@ h5 {
 } */
 
 figure {
+  position: relative; /* so credits show correctly */
   margin: 0;
 
   figcaption {
@@ -451,7 +452,7 @@ img + .credit {
 
   h4,
   p {
-    margin: 0;
+    margin: 0 !important;
   }
 
   a {
