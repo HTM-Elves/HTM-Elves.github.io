@@ -21,7 +21,9 @@ const prev     = document.getElementById("previous")
 const prevName = document.getElementById("previous-name")
 const next     = document.getElementById("next")
 const nextName = document.getElementById("next-name")
+const toCredit = document.querySelectorAll("img[data-credits]")
 
+const CREDIT_REGEX = /\[([^\]]+)\]\(([^\)]+)\)/g
 const linkLength = 32 // number of chars when startOfText is used
 
 
@@ -488,8 +490,40 @@ function updateMenuHighlight() {
   target.classList.remove("target")
   menuItem.classList.add("target")
   menuItem.scrollIntoView({ behavior: "smooth", block: "center"})
-
 }
+
+
+// Show credits for CC images
+toCredit.forEach( img => {
+  const alt = img.alt
+  let credits = img.dataset.credits
+   .replaceAll("<", "&lt;")
+   .replaceAll(">", "&gt;")
+
+  const links = []
+  let match
+  while ((match = CREDIT_REGEX.exec(credits))) {
+    const [, text, link ] = match
+    links.push({ text, link })
+  }
+
+  const credit = document.createElement("div")
+  const title = document.createElement("h4")
+  title.innerText = alt
+
+  const details = document.createElement("p")
+  credit.append(title)
+  credit.classList.add("credit")
+  links.forEach (({ text, link}) => {
+    const a = `<a href="${link}">${text}</a>`
+    const chunk = `[${text}](${link})`
+    credits = credits.replace(chunk, a)
+  })
+  details.innerHTML = credits
+  credit.append(details)
+
+  img.after(credit)
+})
 
 
 // https://www.freecodecamp.org/news/javascript-debounce-example/

@@ -435,6 +435,42 @@ img {
   max-width: 100%;
 }
 
+img + .credit {
+  /* Take out of the flow */
+  position: absolute;
+  /* Move up over bottom of older sibling image */
+  padding: 0.5em;
+  width: fit-content;
+  background-color: #0008;
+  transform: translateY(-100%);
+  /* Hide until image is hovered over */
+  opacity: 0;
+  pointer-events: none;
+  /* Show and hide gently */
+  transition: opacity 0.5s;
+
+  h4,
+  p {
+    margin: 0;
+  }
+
+  a {
+    color: var(--light);
+
+    &:hover {
+      color: var(--white);
+    }
+  }
+}
+
+img:hover + .credit,
+div.credit:hover {
+  opacity: 1;
+  pointer-events: all;
+  /* Pause before showing, so won't trigger on quick rollover */
+  transition-delay: 1s;
+}
+
 /* LINKS / LINKS / LINKS / LINKS / LINKS / LINKS / LINKS */
 
 a {
