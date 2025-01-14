@@ -27,6 +27,7 @@
   --dark:      #222;
   --skip:      #666;
   --mid:       #888;
+  --download:  #cccc;
   --light:     #ddd;
   --lighter:   #fff1;
   --bright:    #fff;
@@ -504,7 +505,7 @@ a.external:visited {
 }
 
 a[download] {
-  border: 1px outset black;
+  border: 1px outset var(--download);
   border-radius: 0.5em;
   padding: 0.25em 0.5em;
 }
@@ -764,6 +765,11 @@ details {
     padding: var(--gap);
     margin: var(--nip);
     background-color: var(--bg-color);
+
+    h2 {
+      display: inline;
+      font-size: 1.5rem;
+    }
   }
 
   summary::after {
