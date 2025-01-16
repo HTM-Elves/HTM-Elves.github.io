@@ -820,6 +820,14 @@ details {
     }
   }
 
+  &.hint {
+    --bg-color: var(--solution);
+
+    & summary::after {
+      content: url("svg/hint.svg");
+    }
+  }
+
   &.env {
     --bg-color: var(--env);
 
