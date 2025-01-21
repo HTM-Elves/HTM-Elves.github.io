@@ -1,17 +1,7 @@
 [
-  { "name": "Getting Started",
-    "url": "#getting-started",
-    "description": "Setting up your work environment",
-    "icon": "public/svg/env.svg"
-  },
-  { "name": "Going Deeper",
-    "url": "#going-deeper",
-    "description": "Exploring the documentation",
-    "icon": "public/svg/tldr.svg"
-  },
-  { "name": "Pro Tips",
-    "url": "#pro-tips",
-    "description": "Exploiting your unfair advantage",
-    "icon": "public/svg/challenge.svg"
+  { "name": "Amaze with your First JavaScript Game",
+    "url": "/Amaze-with-first-JavaScript-Game",
+    "description": "Create a simple game with NodeJS that will beat your friends whenever it gets the chance",
+    "icon": "private/icons/nail.svg"
   }
 ]

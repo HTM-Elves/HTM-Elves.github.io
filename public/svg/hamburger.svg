@@ -1,0 +1,38 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  viewBox="0 0 100 100"
+  
+  stroke-width="1"
+  stroke="#000"
+  fill="#fff"
+>
+
+  <g
+    transform-origin="50 50"
+  >
+    <path
+      d="M5 20 h 90 v 60 h -90 z"
+      fill="#0000"
+      stroke="none"
+    />
+    <path
+      id="oval"
+      d="
+      M 15 30
+      a 10 10 0 0 1 0 -20
+      h 70
+      a 10 10 0 0 1 0 20
+      z
+      "
+    />
+    <use 
+      href="#oval"
+      y="30"
+    />
+    <use 
+      href="#oval"
+      y="60"
+    />
+  </g>
+</svg>

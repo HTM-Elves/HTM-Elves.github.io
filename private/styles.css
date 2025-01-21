@@ -1,7 +1,7 @@
 :root {
   --white: #fff;
   --light: #ddd;
-  --gold: #fe6;
+  --gold: #fea;
   --mid:   #888;
   --dark:  #222;
   --deep:  #1c1c1c;
@@ -23,9 +23,14 @@ body {
 main {
   padding: 1em;
   box-shadow: 3px 3px 10px var(--black);
+  max-width: 420px;
 
-  footer {
-    color: var(--mid);
+  a {
+    color: inherit;
+
+    &:hover {
+      color: var(--gold);
+    }
   }
 
   div.overview,
@@ -37,7 +42,7 @@ main {
   }
 
   div.overview p:first-child {
-    font-size: 1.4em;
+    font-size: 1.2em;
     font-weight: bold;
   }
 
@@ -94,6 +99,7 @@ main {
 
   footer {
     position: relative;
+    color: var(--mid);
 
     a {
       position: absolute;
@@ -104,7 +110,7 @@ main {
       cursor: pointer;
 
       &:hover {
-        opacity: 1
+        opacity: 1;
       }
 
       img {

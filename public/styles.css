@@ -1,25 +1,39 @@
 :root {
   /* Menu */
   --menu-width: min(250px, 50vw);
-  --main-width: 725px;
-  /* see @media (min-width: 975px) in media-queries.css */
+
+  /* --header-height is defined in inline in template as 38px
+     a#banner has a min-height of 44px
+     margin-top for site-main is set at inline:22 to:
+       calc(var(--header-height) * 3 + 5px)
+
+     Define this formally:
+  */
+  --header-size: calc(var(--header-height) * 3 + 5px);
 
   --ratio: 0.25;
   --icon-size: calc(var(--ratio) * var(--menu-width));
   --list-width: calc(var(--menu-width) - 1rem);
-  --repo-size: 118px;
-  --items-height: calc(100vh - var(--icon-size) - var(--repo-size));
-  --svg-margin: 0.4em;
-  --darkly: #222e;
-  --border: #888;
-  --selected: #000;
+  --repo-size: 13rem;
+  --items-height: calc(
+    100vh
+  - var(--icon-size)
+  - var(--repo-size)
+  );
+  --svg-margin: 0.64rem;
+  --darkly:   #222e;
+  --whitely:  #fffe;
+  --border:   #888;
+  --selected: #ddd;
+  --menu-bg:  var(--whitely);
+  --invert:    0;
 
   /* Paging */
   --pad: calc(var(--icon-size) / 7);
   --size: calc(var(--icon-size) - 4 * var(--pad));
   --dim: 0.5;
-  --page-bg: #fff2;
-  --hover: #fff3;
+  --page-bg: #0002;
+  --hover: #0003;
 
   /* Body */
   --black:     #000;
@@ -30,11 +44,11 @@
   --download:  #cccc;
   --light:     #ddd;
   --lighter:   #fff1;
-  --bright:    #fff;
+  --white:     #fff;
 
   /* Details */
   --alert:     #800;
-  --challenge: #609;
+  --challenge: #ecf;
   --env:       #069;
   --note:      #040;
   --pivot:     #03c;
@@ -48,37 +62,59 @@
   --warn:      #630;
   --github:    #060;
   --gitbor:    #080;
+  --code:      #0001;
 
-  --min-width: calc(var(--main-width) + var(--menu-width));
+  --text:      var(--dark);
+  --bg:        var(--white);
+  --mixer:     var(--lighter);
+  --active:    var(--black);
 
   /* Links */
-  --link-color: #fc9;
-  --link-visited: #fdb;
+  --link-color:   #840;
+  --link-visited: #a50;
 
   /* Footer */
-  --footer-height: 2em;
+  --footer-height: 3.2rem;
   --footer-top: calc(100vh - var(--footer-height))
 }
 
 body {
-  background-color: var(--dark);
-  color: var(--light);
+  background-color: var(--bg);
+  color: var(--text);
   margin: 0;
-  font-family:Arial, Helvetica, sans-serif;
   counter-reset: fig menu;
 }
 
-main {
-  position: relative;
-  max-width: var(--main-width);
-  min-height: 100vh;
-  margin: 0 auto;
-  padding: 0 1em;
+body.dark {
+  --text: var(--light);
+  --bg:   var(--dark);
 
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  overflow: auto;
+  --menu-bg:  var(--darkly);
+  --invert:    1;
+  --selected:  #000;
+  --page-bg: #fff2;
+  --hover: #fff3;
+
+  --alert:     #800;
+  --challenge: #609;
+  --env:       #069;
+  --note:      #040;
+  --pivot:     #03c;
+  --question:  #907;
+  --sandbox:   #a86;
+  --solution:  #4069;
+  --story:     #088;
+  --tip:       #c90;
+  --tldr:      #004;
+  --trouble:   #c60;
+  --warn:      #630;
+  --code:      #fff3;
+
+  --link-color: #fc9;
+  --link-visited: #fdb;
+
+  --mixer:     var(--darker);
+  --active:    var(--white);
 }
 
 header {
@@ -86,7 +122,7 @@ header {
   border-bottom: 1px solid var(--mid);
 
   & h1 {
-    margin: 0.75em 0 0;
+    margin: 1.2rem 0 0;
   }
   & h3 {
     margin-top: 0;
@@ -109,7 +145,7 @@ header {
     right: 0;
 
     img {
-      width: 1.8em;
+      width: 3rem;
       opacity: 0.2;
 
       &:hover {
@@ -120,10 +156,11 @@ header {
 }
 
 /* Show non last-of-type sections after last-of-type */
-section {
+section[data-item] {
+  background-color: var(--bg);
   order: 1;
 }
-section:last-of-type {
+section[data-item]:last-of-type {
   order: 0
 }
 
@@ -143,7 +180,29 @@ body:has(#pages:checked) {
     width: auto;
     overflow: auto;
   }
+
+  section:target {
+    padding-top: var(--header-size);
+  }
+
+  .post-full:has(section:target:not(:last-of-type)) {
+    figure.post-full-image,
+    .post-full-author-header {
+      display: none;
+    }
+  }
+
+  /* Show cover image and author header for first page, anyway */
+  .post-full:has(section:target:last-of-type) {
+    figure.post-full-image {
+      margin-bottom: calc(-1 * var(--header-size));
+      /* Prevent section:target from overlapping the image */
+      z-index: 1;
+    }
+  }
 }
+
+
 
 /* Ensure short content is pushed to the top */
 main > .spacer {
@@ -153,13 +212,14 @@ main > .spacer {
 
 p,
 li {
-  line-height: 1.75em
+  line-height: 2.8rem
 }
 
-footer {
+footer#article-footer {
   height: var(--footer-height);
   margin: var(--footer-height) 0;
   display: flex;
+  width: 100%;
   justify-content: space-between;
   align-items: center;
   order: 2;
@@ -170,7 +230,7 @@ footer {
     color: inherit;
     box-sizing: border-box;
     border: 1px outset #000;
-    border-radius: 0.2em;
+    border-radius: 0.3rem;
     width: var(--footer-height);
     height: var(--footer-height);
     cursor: pointer;
@@ -197,7 +257,7 @@ footer {
   }
 
   & button:hover + span {
-    color: var(--bright);
+    color: var(--active);
   }
 }
 
@@ -217,26 +277,16 @@ body:not(:has(#pages:checked)) {
 /* CONTENT // CONTENT // CONTENT // CONTENT // CONTENT */
 
 h1 {
-  font-size: 2em;
+  font-size: 3.2rem;
   text-align: center;
 }
-/* h2,
-h4 {
-  text-decoration: underline;
-}
-
-h5 {
-  font-size: 1rem;
-  font-weight: bold;
-  font-style: italic;
-} */
 
 figure {
   position: relative; /* so credits show correctly */
   margin: 0;
 
   figcaption {
-    margin: 1em 0 3em;
+    margin: 1em 0 4.8rem;
     text-align: center;
     text-decoration: underline;
 
@@ -270,7 +320,7 @@ code i * {
 }
 
 code:not([class]) {
-  background-color: #fff3;
+  background-color: var(--code);
   padding: 0 0.2em;
   font-size: 14px;
   white-space: pre
@@ -283,7 +333,7 @@ h2, h3 {
 h2 code:not([class]), /* :not([class]) needed for specificity */
 h3 code:not([class]),
 h4 code:not([class]) {
-  font-size: 1.2em;
+  font-size: 1.9rem;
 }
 
 aside s,
@@ -306,15 +356,15 @@ code s * {
 
 code u,
 code u * {
-  background-color: #fff3;
+  background-color: var(--code);
   text-decoration: none;
 }
 
 aside,
 blockquote {
   background-color: #020;
-  padding: 0.25em 1em;
-  border-left: 1em solid #040;
+  padding: 0.4rem 1.6rem;
+  border-left: 1.6rem solid #040;
   box-sizing: border-box;
 }
 
@@ -324,19 +374,19 @@ blockquote {
 }
 
 blockquote pre:has(code) {
-  --bg: #333;
-  background-color: var(--bg);
-  padding: 0.5em;
+  --bg-color: #333;
+  background-color: var(--bg-color);
+  padding: 0.8rem;
 }
 blockquote pre code:not([id])
 {
-  /* background-color: var(--bg); */
+  /* background-color: var(--bg-color); */
   padding: 0;
 }
 
 aside.center {
   text-align: center;
-  border-right: 1em solid;
+  border-right: 1.6rem solid;
 }
 
 /* aside:not([class]) code {
@@ -350,7 +400,7 @@ aside:not([class]) code {
 
 aside.vscode {
   background-color: #224;
-  border-left: 1em solid #006;
+  border-left: 1.6rem solid #006;
 }
 
 aside.vscode pre,
@@ -384,7 +434,7 @@ aside.alert code {
 
 aside.question {
   background-color: #202;
-  border-right: 1em solid;
+  border-right: 1.6rem solid;
   border-color: #606;
 }
 
@@ -399,13 +449,13 @@ aside.question blockquote {
 
 cite {
   display: block;
-  margin-top: 0.5em;
+  margin-top: 0.8rem;
   text-align: right;
 }
 
 li,
 br {
-  margin-bottom: 0.5em;
+  margin-bottom: 0.8rem;
 }
 
 table {
@@ -414,11 +464,11 @@ table {
   border: 1px solid var(--light);
 
   th {
-    padding: 0.5em;
+    padding: 0.8rem;
     text-align: left;
   }
   td {
-    padding: 0.5em;
+    padding: 0.8rem;
     border-bottom: 0.5px solid var(--light);
   }
   th:last-child,
@@ -441,7 +491,7 @@ img + .credit {
   /* Take out of the flow */
   position: absolute;
   /* Move up over bottom of older sibling image */
-  padding: 0.5em;
+  padding: 0.8rem;
   width: fit-content;
   background-color: #0008;
   transform: translateY(-100%);
@@ -506,8 +556,8 @@ a.external:visited {
 
 a[download] {
   border: 1px outset var(--download);
-  border-radius: 0.5em;
-  padding: 0.25em 0.5em;
+  border-radius: 0.8rem;
+  padding: 0.4rem 0.8rem;
 }
 
 /* Footer */
@@ -528,11 +578,12 @@ footer {
 
   /* Don't crowd the names against the buttons */
   #previous-name {
-    margin-left: 0.5em
+    margin-left: 0.8rem;
   }
 
   #next-name {
-    margin-right: 0.5em
+    margin-right: 0.8rem;
+    text-align: right;
   }
 
   /* Push the previous-name and next-name spans apart */
@@ -594,6 +645,11 @@ button[data-name]:hover {
   transition-duration: .3s, .1s;
   transition-timing-function: linear, ease-in-out;
   opacity: 0.2;
+  filter: invert(var(--invert));
+
+  &:hover {
+    opacity:0.8;
+  }
 }
 
 #menu-items {
@@ -604,7 +660,7 @@ button[data-name]:hover {
   overflow-y: auto;
   list-style-type: none;
 
-  padding: 0 0.5em;
+  padding: 0 0.8rem;
 }
 
 #menu {
@@ -615,10 +671,10 @@ button[data-name]:hover {
 
   height: 100vh;
   width: var(--menu-width);
-  background-color: var(--darkly);
+  background-color: var(--menu-bg);
   border-right: #000;
   box-shadow: 10px 10px 10px #0009;
-  z-index: 99;
+  z-index: 9999; /* .site-main has z-index set to 100 inline */
 
   transition: left .4s linear;
 
@@ -640,13 +696,13 @@ button[data-name]:hover {
   }
 
   li {
-    margin-top: 0.25em;
+    margin-top: 0.4rem;
     border: var(--border) outset 1px;
-    border-radius: 0.5em;
-    color: var(--light);
+    border-radius: 0.8rem;
+    color: var(--text);
 
     &:hover {
-      color: var(--bright);
+      color: var(--active);
     }
 
     &.target {
@@ -656,7 +712,7 @@ button[data-name]:hover {
 
     a {
       display: inline-block;
-      padding: 0.25em 1em;
+      padding: 0.4rem 1.6rem;
       box-sizing: border-box;
 
       width: 100%;
@@ -675,7 +731,7 @@ button[data-name]:hover {
 
 
 div#repo {
-  padding: 0.5em 0;
+  padding: 0.8rem 0;
   border-top: 1px solid var(--mid);
 
   .feedback {
@@ -688,20 +744,21 @@ div#repo {
   }
 
   a {
-    color: #fff;
+    color: var(--text);
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     padding: 0;
-    margin: 0.5em 0;
+    margin: 0.8rem 0;
     overflow-y: visible;
 
     &.repo {
+      color: var(--white);
       background-color: var(--github);
-      margin-top: 1em;
-      padding: 0.5em 0;
+      margin-top: 1.6rem;
+      padding: 0.8rem 0;
       border: 1px solid var(--gitbor);
-      border-radius: 0.5em;
+      border-radius: 0.8rem;
     }
   }
 }
@@ -731,21 +788,21 @@ div#repo {
 /* DETAILS / DETAILS / DETAILS / DETAILS / DETAILS / DETAILS */
 
 details {
-  --gap: 0.5rem;
+  --gap: 0.8rem;
   --nip: calc(var(--gap) * -1);
   --bg-color: #fff;
   border: 1px inset var(--bg-color);
-  margin: 2em 0 1em;
+  margin: 3.2rem 0 1.6rem;
   padding: var(--gap);
   overflow: auto;
   background-color: color-mix(
     in oklab,
     var(--bg-color),
-    var(--darker)
+    var(--mixer)
   );
 
   &[open] {
-    border-left-width: 0.25em;
+    border-left-width: 0.4rem;
     border-left-style: solid;
   }
 
@@ -759,8 +816,8 @@ details {
 
   summary {
     position: relative;
-    font-size: 1.25em;
-    height: 1.5em;
+    font-size: 2rem;
+    height: 3.2rem;
     font-weight: bold;
     padding: var(--gap);
     margin: var(--nip);
@@ -768,24 +825,30 @@ details {
 
     h2 {
       display: inline;
-      font-size: 1.5rem;
+      font-size: 2.4rem;
     }
   }
 
   summary::after {
     display: inline-block;
     position: absolute;
+    width: 3.2rem;
     right: 0;
-    width: 1.5em;
-    margin-right: 0.5em ;
+    margin-right: 0.8rem;
+    filter: invert(var(--invert));
   }
 
   p:first-of-type {
-    margin-top: 1.5em;
+    margin-top: 2.4rem;
   }
 
   p:last-of-type {
     margin-bottom: var(--gap);
+  }
+
+  ul {
+    /* padding: 0; */
+    box-sizing: border-box;
   }
 
   &.alert {
@@ -933,12 +996,13 @@ div.paging {
     width: var(--size);
     height: var(--size);
     background-color: var(--page-bg);
-    /* margin-left: var(--pad); */
     margin-top: var(--pad);
     padding: var(--pad);
     border: 1px solid transparent;
+    box-sizing:content-box;
 
     img {
+      filter: invert(var(--invert));
       opacity: var(--dim)
     }
 
@@ -959,6 +1023,7 @@ div.paging {
       /* Show all options */
       display: block;
       border-color: var(--page-bg);
+      box-sizing: content-box;
 
       /* Round the ends of the display */
       &:first-child {
@@ -972,7 +1037,7 @@ div.paging {
 
       /* Highlight selected option */
       &:has(:checked) {
-        border-color: white;
+        border-color: var(--page-bg);
         img {
           opacity: 1;
         }
@@ -988,10 +1053,10 @@ div.paging {
 }
 
 .skip {
-  margin: -0.5em 0;
+  margin: -0.8rem 0;
   text-align: center;
   background-color: #2d2d2d;
-  font-size: 1rem;
+  font-size: 1.6rem;
 
   & * {
     color: var(--skip)
@@ -999,10 +1064,10 @@ div.paging {
 }
 
 details .skip {
-  margin: -0.5em 0;
+  margin: -0.8rem 0;
   text-align: center;
   background-color: var(--lighter);
-  font-size: 1rem;
+  font-size: 1.6rem;
 
   & * {
     color: var(--skip)
@@ -1010,11 +1075,13 @@ details .skip {
 }
 
 .no-margin * {
-  margin: 1em 0;
+  margin: 1.6rem 0;
 }
 
 iframe {
-  margin: 2em auto;
+  margin: 3.2rem auto;
   display: block;
   border: none;
+
+  max-width: 100%!important;
 }

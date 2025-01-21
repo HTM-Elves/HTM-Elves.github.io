@@ -4,7 +4,7 @@
 
 @media (min-width: 410px) {
   #menu {
-    font-size: 1rem;
+    font-size: 1.6rem;
   }
 }
 
@@ -44,18 +44,10 @@
   }
 }
 
-/* Show the menu at all times if the viewport is wide enough
- * The `min-width` depends on --main-width (725px) and on 
- * --menu-width (250px), but @media queries don't accept
- * custom properties as width values, so the value to be 
- * hard-coded here.
- */
-@media (min-width: 975px) {
-  main:has(section) {
-    --extra: calc((100vw - var(--menu-width) - var(--main-width)) / 2);
-    --left-margin: calc(var(--menu-width) + var(--extra));
-    margin-left: var(--left-margin);
-    margin-right: var(--extra);
+/* Show the menu at all times if the viewport is wide enough */
+@media (min-width: 1300px) {
+  div.site-wrapper {
+    margin-left: var(--menu-width);
   }
 
   #menu {
