@@ -13,10 +13,13 @@ body:has(#theme-dark:checked) {
 }
 
 /* Adjustment for section padding-top's adjustment for banner */
-figure.post-full-image {
-  margin-bottom: calc(-1 * var(--header-size));
-  /* Prevent content from overlapping the image */
-  z-index: 1;
+body:has(#scroll:checked),
+body:has(#pages:checked):has(:target) {
+    figure.post-full-image {
+    margin-bottom: calc(-1 * var(--header-size));
+    /* Prevent content from overlapping the image */
+    z-index: 1;
+  }
 }
 
 

@@ -51,19 +51,20 @@
   --btn-down:  #040;
 
   /* Details */
-  --alert:     #800;
+  --alert:     #f99;
   --challenge: #ecf;
-  --env:       #069;
-  --note:      #040;
-  --pivot:     #03c;
-  --question:  #907;
-  --sandbox:   #a86;
-  --solution:  #4069;
-  --story:     #088;
-  --tip:       #c90;
-  --tldr:      #004;
-  --trouble:   #c60;
-  --warn:      #630;
+  --env:       #aef;
+  --feedback:  #bdb;
+  --note:      #dfd;
+  --pivot:     #9cf;
+  --question:  #fbd;
+  --sandbox:   #fec;
+  --solution:  #d9f6;
+  --story:     #cfe;
+  --tip:       #fe9;
+  --tldr:      #77b;
+  --trouble:   #fc9;
+  --warn:      #fbb;
   --code:      #0001;
 
   --text:      var(--dark);
@@ -100,6 +101,7 @@ body:has(#theme-dark:checked) {
   --alert:     #800;
   --challenge: #609;
   --env:       #069;
+  --feedback:  var(--cta);
   --note:      #040;
   --pivot:     #03c;
   --question:  #907;
@@ -197,9 +199,10 @@ body:has(#pages:checked) {
 }
 
 div#content {
-  width: 100%;
   display: flex;
   flex-direction: column;
+  position: relative;
+  width: 100%;
 
 /* Ensure short content is pushed to the top */
   & > .spacer {
@@ -248,77 +251,13 @@ li {
   line-height: 2.8rem
 }
 
-footer#article-footer {
-  height: var(--footer-height);
-  margin: var(--footer-height) 0;
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  align-items: center;
-  order: 2;
-
-  & button {
-    display: inline-block;
-    background-color: transparent;
-    color: inherit;
-    box-sizing: border-box;
-    border: 1px outset var(--ctabor);
-    border-radius: 0.3rem;
-    width: var(--footer-height);
-    height: var(--footer-height);
-    cursor: pointer;
-
-    &#next:not(:active) {
-      background-color: var(--cta)!important;
-
-      & img {
-        filter: invert(0.9);
-      }
-    }
-
-    &:hover {
-      border-color: var(--cta);
-    }
-
-    &:hover:active {
-      border-style: inset;
-      background-color: var(--btn-down)!important;
-
-      & img {
-        filter: invert(1);
-      }
-    }
-
-    &:disabled {
-      background-color: transparent;
-      opacity: 0.2;
-      pointer-events: none; /* to prevent reactions to :hover */
-    }
-
-    & img {
-      margin: 0;
-      height: 2.25rem;
-      width: 2.25rem;
-      filter: invert(var(--invert));
-      background-color: transparent!important;
-    }
-  }
-
-  & span {
-    -webkit-user-select: none; /* Safari */
-            user-select: none;
-  }
-
-  & button:hover + span {
-    color: var(--active);
-  }
-}
-
 /* No menu or footer if no sections */
 div#content:not(:has(section)),
 body:not(:has(#pages:checked)) {
   & ~ #menu,
-  footer {
+  #article-header,
+  #article-footer
+   {
     display: none;
   }
 
@@ -579,7 +518,73 @@ div.credit:hover {
 
 /* Footer */
 
-footer {
+header#article-header,
+footer#article-footer {
+  height: var(--footer-height);
+  margin: var(--footer-height) 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  order: 2;
+  font-size: 1.6rem;
+
+  & button {
+    display: inline-block;
+    background-color: transparent;
+    color: inherit;
+    box-sizing: border-box;
+    border: 1px outset var(--ctabor);
+    border-radius: 0.3rem;
+    width: var(--footer-height);
+    height: var(--footer-height);
+    cursor: pointer;
+
+    &#next:not(:active) {
+      background-color: var(--cta)!important;
+
+      & img {
+        filter: invert(0.9);
+      }
+    }
+
+    &:hover {
+      border-color: var(--cta);
+    }
+
+    &:hover:active {
+      border-style: inset;
+      background-color: var(--btn-down)!important;
+
+      & img {
+        filter: invert(1);
+      }
+    }
+
+    &:disabled {
+      background-color: transparent;
+      opacity: 0.2;
+      pointer-events: none; /* to prevent reactions to :hover */
+    }
+
+    & img {
+      margin: 0;
+      height: 2.25rem;
+      width: 2.25rem;
+      filter: invert(var(--invert));
+      background-color: transparent!important;
+    }
+  }
+
+  & span {
+    -webkit-user-select: none; /* Safari */
+            user-select: none;
+  }
+
+  & button:hover + span {
+    color: var(--active);
+  }
+
   span {
     cursor: pointer
   }
@@ -588,17 +593,17 @@ footer {
     button:hover + span will work. But it must be displayed
     _after_ the name.
   */
-  #next {
+  .next {
     background-color: var(--cta);
     order: 1
   }
 
   /* Don't crowd the names against the buttons */
-  #previous-name {
+  .previous-name {
     margin-left: 0.8rem;
   }
 
-  #next-name {
+  .next-name {
     margin-right: 0.8rem;
     text-align: right;
   }
@@ -608,6 +613,19 @@ footer {
     flex: 1;
     order: 0;
   }
+}
+
+body:has(#pages:checked) :not(:has(:target)),
+body:has(#pages:checked):has(:target:last-of-type) {
+    header#article-header {
+    display: none;
+  }
+}
+
+header#article-header {
+  position: absolute;
+  order: 0;
+  border: none;
 }
 
 /* Ensure feedback aside on #intro page wraps nicely on all
@@ -838,7 +856,7 @@ details {
     font-weight: bold;
     padding: var(--gap);
     margin: var(--nip);
-    background-color: var(--bg-color);
+    background-color: var(--bg-color)!important;
 
     h2 {
       display: inline;
@@ -849,7 +867,7 @@ details {
   summary::after {
     display: inline-block;
     position: absolute;
-    width: 3.2rem;
+    width: 3rem;
     right: 0;
     margin-right: 0.8rem;
     filter: invert(var(--invert));
@@ -917,7 +935,7 @@ details {
   }
 
   &.feedback {
-    --bg-color: var(--cta);
+    --bg-color: var(--feedback);
 
     & summary::after {
       content: url("svg/feedback.svg");

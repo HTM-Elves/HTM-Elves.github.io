@@ -2886,19 +2886,31 @@ content="width=device-width, initial-scale=1.0"
 
 <!-- <<< TEMPLATE -->
 <div id="content">
+  <header id="article-header">
+    <button type="button" class="previous" disabled>
+      <img src="../public/svg/prev.svg" alt="previous" draggable="false">
+    </button>
+    <span class="previous-name"></span>
+    <span class="spacer"></span>
+    <button type="button" class="next">
+      <img src="../public/svg/next.svg" alt="next" draggable="false">
+    </button>
+    <span class="next-name"></span>
+  </header>
+
   $body$
 
   <div class="spacer"></div>
   <footer id="article-footer">
-    <button type="button" id="previous" disabled>
+    <button type="button" class="previous" disabled>
       <img src="../public/svg/prev.svg" alt="previous" draggable="false">
     </button>
-    <span id="previous-name"></span>
+    <span class="previous-name"></span>
     <span class="spacer"></span>
-    <button type="button" id="next">
+    <button type="button" class="next">
       <img src="../public/svg/next.svg" alt="next" draggable="false">
     </button>
-    <span id="next-name"></span>
+    <span class="next-name"></span>
   </footer>
 </div>
 <!-- TEMPLATE >>>-->

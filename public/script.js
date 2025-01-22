@@ -12,6 +12,8 @@
 const storage  = new Storage()
 
 const main     = document.getElementById("content")
+const head     = document.getElementById("article-header")
+const foot     = document.getElementById("article-footer")
 const menu     = document.getElementById("menu")
 const icon     = document.getElementById("menu-icon")
 const list     = document.getElementById("menu-items")
@@ -20,14 +22,21 @@ const controls = Array.from(menu.querySelectorAll(
 ))
 controls.push(icon)
 controls.push(list)
-const sections = Array.from(
-  document.querySelectorAll("section[data-item]")
-)
-const foot     = document.getElementById("article-footer")
-const prev     = document.getElementById("previous")
-const prevName = document.getElementById("previous-name")
-const next     = document.getElementById("next")
-const nextName = document.getElementById("next-name")
+const sections = Array.from(document.querySelectorAll(
+  "section[data-item]"
+))
+const prev     = Array.from(document.getElementsByClassName(
+  "previous"
+))
+const prevName = Array.from(document.getElementsByClassName(
+  "previous-name"
+))
+const next     = Array.from(document.getElementsByClassName(
+  "next"
+))
+const nextName = Array.from(document.getElementsByClassName(
+  "next-name"
+))
 const toCredit = document.querySelectorAll("img[data-credits]")
 
 const CREDIT_REGEX = /\[([^\]]+)\]\(([^\)]+)\)/g
@@ -193,19 +202,23 @@ function setPreviousAndNext(hash) {
   const isLast = (index === sectionIds.length - 1)
 
   if (index) {
-    prev.removeAttribute("disabled")
-    prevName.textContent = sectionNames[index - 1]
+    prev.forEach( element => element.removeAttribute("disabled"))
+    prevName.forEach( element => (
+      element.textContent = sectionNames[index - 1]
+    ))
   } else {
-    prev.setAttribute("disabled", true)
-    prevName.textContent = ""
+    prev.forEach(element => element.setAttribute("disabled", true))
+    prevName.forEach(element => element.textContent = "")
   }
 
   if (isLast) {
-    next.setAttribute("disabled", true)
-    nextName.textContent = ""
+    next.forEach(element => element.setAttribute("disabled", true))
+    nextName.forEach( element => element.textContent = "")
   } else {
-    next.removeAttribute("disabled")
-    nextName.textContent = sectionNames[index + 1]
+    next.forEach( element => element.removeAttribute("disabled"))
+    nextName.forEach( element => (
+      element.textContent = sectionNames[index + 1]
+    ))
   }
 }
 
@@ -382,15 +395,16 @@ function toggleMenu() {
 
 
 // Navigating with the footer //
+head.addEventListener("mouseup", goSection)
 foot.addEventListener("mouseup", goSection)
 
 function goSection({ target }) {
-  let { id } = target.closest("button")
-  if (!id) {
+  let { classList } = target.closest("button")
+  if (!classList) {
     return
   }
-  id = id.replace("-name", "")
-  let direction = [0, "previous", 0, "next"].indexOf(id)
+  const className = classList[0].replace("-name", "")
+  let direction = [0, "previous", 0, "next"].indexOf(className)
   // -1, 1, 3
   if (direction < 0) {
     return
