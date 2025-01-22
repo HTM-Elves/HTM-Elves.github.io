@@ -2,3 +2,26 @@
 .post-full-content {
   font-size: 2.2rem;
 }
+
+
+body:has(#theme-dark:checked) {
+  #site-main,
+  #site-main *{
+    background-color: var(--dark);
+    color: var(--light);
+  }
+}
+
+/* Adjustment for section padding-top's adjustment for banner */
+figure.post-full-image {
+  margin-bottom: calc(-1 * var(--header-size));
+  /* Prevent content from overlapping the image */
+  z-index: 1;
+}
+
+
+@media (min-width: 1300px) {
+  main#site-main {
+    margin-left: var(--menu-width);
+  }
+}

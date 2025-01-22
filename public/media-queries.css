@@ -46,10 +46,6 @@
 
 /* Show the menu at all times if the viewport is wide enough */
 @media (min-width: 1300px) {
-  div.site-wrapper {
-    margin-left: var(--menu-width);
-  }
-
   #menu {
     left: 0;
   }

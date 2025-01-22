@@ -9,7 +9,7 @@
 
      Define this formally:
   */
-  --header-size: calc(var(--header-height) * 3 + 5px);
+  --header-size: calc(var(--header-height) * 2 + 10px);
 
   --ratio: 0.25;
   --icon-size: calc(var(--ratio) * var(--menu-width));
@@ -19,6 +19,7 @@
     100vh
   - var(--icon-size)
   - var(--repo-size)
+  - var(--header-size)
   );
   --svg-margin: 0.64rem;
   --darkly:   #222e;
@@ -85,7 +86,7 @@ body {
   counter-reset: fig menu;
 }
 
-body.dark {
+body:has(#theme-dark:checked) {
   --text: var(--light);
   --bg:   var(--dark);
 
@@ -157,7 +158,7 @@ header {
 
 /* Show non last-of-type sections after last-of-type */
 section[data-item] {
-  background-color: var(--bg);
+  padding-top: var(--header-size);
   order: 1;
 }
 section[data-item]:last-of-type {
@@ -168,6 +169,7 @@ body:has(#pages:checked) {
   /* Hide all sections, including last if there's a :target... */
   section,
   section:target ~ section:last-of-type {
+    padding: 0;
     height: 0;
     width: 0;
     overflow: hidden;
@@ -191,23 +193,53 @@ body:has(#pages:checked) {
       display: none;
     }
   }
-
-  /* Show cover image and author header for first page, anyway */
-  .post-full:has(section:target:last-of-type) {
-    figure.post-full-image {
-      margin-bottom: calc(-1 * var(--header-size));
-      /* Prevent section:target from overlapping the image */
-      z-index: 1;
-    }
-  }
 }
 
-
+div#content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 
 /* Ensure short content is pushed to the top */
-main > .spacer {
-  order: 1;
-  flex: 1;
+  & > .spacer {
+    order: 1;
+    flex: 1;
+  }
+
+  a {
+    color: var(--link-color);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  a:visited {
+    color: var(--link-visited);
+  }
+
+  a.external {
+    color: #9cf;
+  }
+
+  a.external span {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background-image: url("./images/external.svg");
+    margin-left: 2px;
+  }
+
+  a.external:visited {
+    color: #bdf;
+  }
+
+  a[download] {
+    border: 1px outset var(--download);
+    border-radius: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
 }
 
 p,
@@ -262,7 +294,7 @@ footer#article-footer {
 }
 
 /* No menu or footer if no sections */
-main:not(:has(section)),
+div#content:not(:has(section)),
 body:not(:has(#pages:checked)) {
   & ~ #menu,
   footer {
@@ -523,42 +555,6 @@ div.credit:hover {
   transition-delay: 1s;
 }
 
-/* LINKS / LINKS / LINKS / LINKS / LINKS / LINKS / LINKS */
-
-a {
-  color: var(--link-color);
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-a:visited {
-  color: var(--link-visited);
-}
-
-a.external {
-  color: #9cf;
-}
-
-a.external span {
-  display: inline-block;
-  width: 12px;
-  height: 12px;
-  background-image: url("./images/external.svg");
-  margin-left: 2px;
-}
-
-a.external:visited {
-  color: #bdf;
-}
-
-a[download] {
-  border: 1px outset var(--download);
-  border-radius: 0.8rem;
-  padding: 0.4rem 0.8rem;
-}
 
 /* Footer */
 
@@ -639,7 +635,7 @@ button[data-name]:hover {
   width: var(--icon-size);
   height: var(--icon-size);
   stroke: #fff;
-  top: 0;
+  top: var(--header-size);
   left: 0;
   transition-property: left, opacity;
   transition-duration: .3s, .1s;
@@ -665,7 +661,7 @@ button[data-name]:hover {
 
 #menu {
   position: fixed;
-  top: 0;
+  top: var(--header-size);
   left: calc(-1 * var(--menu-width)); /* offscreen by default */
   font-size: var(--menu-font-size);
 
@@ -673,7 +669,7 @@ button[data-name]:hover {
   width: var(--menu-width);
   background-color: var(--menu-bg);
   border-right: #000;
-  box-shadow: 10px 10px 10px #0009;
+  box-shadow: 10px 2px 10px #0009;
   z-index: 9999; /* .site-main has z-index set to 100 inline */
 
   transition: left .4s linear;
@@ -979,7 +975,8 @@ details {
 
 /* PAGING // PAGING // PAGING // PAGING // PAGING // PAGING */
 
-div.paging {
+div.paging,
+div.theme {
   position: absolute;
   width: calc(var(--size) * 3.6);
   margin-left: var(--pad);
@@ -1050,6 +1047,10 @@ div.paging {
       }
     }
   }
+}
+
+div.paging {
+  margin-left: 95px;
 }
 
 .skip {

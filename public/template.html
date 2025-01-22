@@ -2682,7 +2682,7 @@ content="width=device-width, initial-scale=1.0"
 <link rel="stylesheet" href="../public/media-queries.css">
 <link rel="stylesheet" href="../public/prism/prism.css">
 
-<script defer src="../public/prism/prism.js"></script>
+<!-- <script defer src="../public/prism/prism.js"></script> -->
 <script defer src="../public/storage.js"></script>
 <script defer src="../public/script.js"></script>
 <!-- template's version of Prism and CSS >>> -->
@@ -2885,9 +2885,9 @@ content="width=device-width, initial-scale=1.0"
 <!-- freeCodeCamp preamble >>> -->
 
 <!-- <<< TEMPLATE -->
-<div id="main">
+<div id="content">
   $body$
-  
+
   <div class="spacer"></div>
   <footer id="article-footer">
     <button type="button" id="previous" disabled>&lt;</button>
@@ -3138,7 +3138,41 @@ aria-label="menu"
 id="menu"
 class="open"
 >
+<div class="theme">
+<label
+title="Light"
+>
+<img src="../public/svg/light.svg" alt="light">
+<input
+type="radio"
+name="theme"
+id="theme-light"
+checked
+>
+</label>
+<label
+title="Dark"
+>
+<img src="../public/svg/dark.svg" alt="dark">
+<input
+type="radio"
+name="theme"
+id="theme-dark"
+>
+</label>
+</div>
 <div class="paging">
+  <label
+  title="Show as a single page"
+  >
+  <img src="../public/svg/scroll.svg" alt="scroll">
+  <input
+  type="radio"
+  name="paging"
+  id="scroll"
+  checked
+  >
+  </label>
 <label
 title="Split into sections"
 >
@@ -3147,17 +3181,6 @@ title="Split into sections"
 type="radio"
 name="paging"
 id="pages"
-checked
->
-</label>
-<label
-title="Show as a single page"
->
-<img src="../public/svg/scroll.svg" alt="scroll">
-<input
-type="radio"
-name="paging"
-id="scroll"
 >
 </label>
 </div>

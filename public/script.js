@@ -11,10 +11,15 @@
 
 const storage  = new Storage()
 
-const main     = document.getElementById("main")
+const main     = document.getElementById("content")
 const menu     = document.getElementById("menu")
 const icon     = document.getElementById("menu-icon")
 const list     = document.getElementById("menu-items")
+const controls = Array.from(menu.querySelectorAll(
+  "nav#menu label:has(input[type=radio])"
+))
+controls.push(icon)
+controls.push(list)
 const sections = Array.from(
   document.querySelectorAll("section[data-item]")
 )
@@ -359,10 +364,11 @@ function toggleMenu() {
 
   function closeMenu({ target }) {
     while (target) {
-      if (target === list || target === icon) {
+      if (controls.indexOf(target) < 0) {
+        target = target.parentNode
+      } else {
         break
       }
-      target = target.parentNode
     }
 
     if (target) {

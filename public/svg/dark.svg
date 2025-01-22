@@ -1,0 +1,24 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  viewBox="0 0 100 100"
+  >
+
+  <g
+    transform-origin="50 50"
+  >
+    <circle 
+      cx="50"
+      cy="50"
+      r="50"
+    />
+      <path
+        fill="#fff"
+        d="
+        M 36 19
+        a 33 33 0 1 0  45  45
+        a 32 32 0 0 1 -45 -45
+        "
+      />
+  </g>
+</svg>
