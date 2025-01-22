@@ -46,6 +46,9 @@
   --light:     #ddd;
   --lighter:   #fff1;
   --white:     #fff;
+  --cta:       #060;
+  --ctabor:    #080;
+  --btn-down:  #040;
 
   /* Details */
   --alert:     #800;
@@ -61,8 +64,6 @@
   --tldr:      #004;
   --trouble:   #c60;
   --warn:      #630;
-  --github:    #060;
-  --gitbor:    #080;
   --code:      #0001;
 
   --text:      var(--dark);
@@ -90,11 +91,11 @@ body:has(#theme-dark:checked) {
   --text: var(--light);
   --bg:   var(--dark);
 
-  --menu-bg:  var(--darkly);
+  --menu-bg:   var(--darkly);
   --invert:    1;
   --selected:  #000;
-  --page-bg: #fff2;
-  --hover: #fff3;
+  --page-bg:   #fff2;
+  --hover:     #fff3;
 
   --alert:     #800;
   --challenge: #609;
@@ -261,25 +262,45 @@ footer#article-footer {
     background-color: transparent;
     color: inherit;
     box-sizing: border-box;
-    border: 1px outset #000;
+    border: 1px outset var(--ctabor);
     border-radius: 0.3rem;
     width: var(--footer-height);
     height: var(--footer-height);
     cursor: pointer;
 
-    &:hover {
-      border-color: #6c6;
+    &#next:not(:active) {
+      background-color: var(--cta)!important;
+
+      & img {
+        filter: invert(0.9);
+      }
     }
 
-    &:active {
+    &:hover {
+      border-color: var(--cta);
+    }
+
+    &:hover:active {
       border-style: inset;
-      background-color: #000; /* only applies to #previous button */
+      background-color: var(--btn-down)!important;
+
+      & img {
+        filter: invert(1);
+      }
     }
 
     &:disabled {
       background-color: transparent;
       opacity: 0.2;
       pointer-events: none; /* to prevent reactions to :hover */
+    }
+
+    & img {
+      margin: 0;
+      height: 2.25rem;
+      width: 2.25rem;
+      filter: invert(var(--invert));
+      background-color: transparent!important;
     }
   }
 
@@ -568,7 +589,7 @@ footer {
     _after_ the name.
   */
   #next {
-    background-color: #090; /* even when active: call to action */
+    background-color: var(--cta);
     order: 1
   }
 
@@ -750,10 +771,10 @@ div#repo {
 
     &.repo {
       color: var(--white);
-      background-color: var(--github);
+      background-color: var(--cta);
       margin-top: 1.6rem;
       padding: 0.8rem 0;
-      border: 1px solid var(--gitbor);
+      border: 1px solid var(--ctabor);
       border-radius: 0.8rem;
     }
   }
@@ -896,7 +917,7 @@ details {
   }
 
   &.feedback {
-    --bg-color: var(--github);
+    --bg-color: var(--cta);
 
     & summary::after {
       content: url("svg/feedback.svg");

@@ -385,7 +385,7 @@ function toggleMenu() {
 foot.addEventListener("mouseup", goSection)
 
 function goSection({ target }) {
-  let { id } = target
+  let { id } = target.closest("button")
   if (!id) {
     return
   }
