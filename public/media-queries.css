@@ -4,7 +4,7 @@
 
 @media (min-width: 410px) {
   #menu {
-    font-size: 1rem;
+    font-size: 1.6rem;
   }
 }
 
@@ -39,8 +39,8 @@
 
 @media (min-width: 750px) {
   main {
-    padding-left: 6px;
-    padding-right: 6px
+    padding-left: 0.6rem;
+    padding-right: 0.6rem
   }
 }
 
@@ -50,9 +50,13 @@
  * custom properties as width values, so the value to be 
  * hard-coded here.
  */
-@media (min-width: 975px) {
-  main:has(section) {
-    --extra: calc((100vw - var(--menu-width) - var(--main-width)) / 2);
+@media (min-width: 990px) {
+  #content:has(section) {
+    --extra: calc((
+        100vw
+      - var(--menu-width)     /* 250px */
+      - var(--content-width)  /* 725px */
+    ) / 2);
     --left-margin: calc(var(--menu-width) + var(--extra));
     margin-left: var(--left-margin);
     margin-right: var(--extra);
@@ -89,7 +93,7 @@
   }
 
   aside {
-    border-width: 2px !important;
+    border-width: 0.2rem !important;
   }
 
   blockquote {
