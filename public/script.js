@@ -18,6 +18,7 @@ const foot     = document.getElementById("content-footer")
 const menu     = document.getElementById("menu")
 const icon     = document.getElementById("menu-icon")
 const list     = document.getElementById("menu-items")
+
 // Find radio buttons for Dark/Light, Paging/Scroll
 const controls = Array.from(menu.querySelectorAll(
   "nav#menu label:has(input[type=radio])"
@@ -116,6 +117,11 @@ sections.forEach(( section, index ) => {
   }
 })
 
+// Prepare to scroll(into view)IfNeeded
+const [ a, b ] = list.children
+const spacing  = b.getBoundingClientRect().top
+               - a.getBoundingClientRect().top
+               + 2 // to include border?
 
 // Create an array of all visible elements
 function isVisible(node) {
@@ -239,7 +245,7 @@ function setTargetClassInMenu(hash) {
       activeItem = menuItem
       activeItem.classList.add("target")
       // Ensure the entire button is visible
-      activeItem.scrollIntoView()
+      scrollIfNeeded(activeItem)
 
     } else {
       menuItem.classList.remove("target")
@@ -247,6 +253,21 @@ function setTargetClassInMenu(hash) {
   })
 }
 
+
+function scrollIfNeeded(element) {
+  console.log("element:", element, element.tagName)
+  const { top: up, bottom: down } = list.getBoundingClientRect()
+  const { top, bottom } = element.getBoundingClientRect()
+
+  const lower = top - up
+  const raise = bottom - down
+
+  if (lower < 0 ) {
+    list.scrollTop += (lower - spacing)
+  } else if (raise > 0) {
+    list.scrollTop += (raise + spacing)
+  }
+}
 
 
 // Scroll to selection when user uses Find In Page
@@ -390,7 +411,7 @@ function toggleMenu() {
         target = target.parentNode
       } else {
         // Leave menu open if target was a menu item, the menu
-        // icon or a Dark/Light, Paging/Scroll input 
+        // icon or a Dark/Light, Paging/Scroll input
         break
       }
     }
