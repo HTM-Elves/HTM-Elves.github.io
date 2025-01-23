@@ -3,7 +3,7 @@
   font-size: 62.5%;
 
   /* Allow for a full-width banner at the top... */
-  --header-size: 0;
+  --header-size: 0px; /* px is essential when used in a calc() */
   --header-nav-display: none; /* ... but don't use one */
 
   /* Menu */
@@ -22,7 +22,8 @@
     - var(--header-size)
   );
   --svg-margin: 0.64rem;
-  --gap: 0.8rem;
+  --gap:        0.8rem;
+  --fill:       0.4rem;
 
   /* Color settings for light mode */
   --darkly:   #222e;
@@ -92,7 +93,7 @@
   --glow:   0.8;
 
   /* Footer */
-  --footer-height: 2em;
+  --footer-height: 3.2rem;
   --footer-top: calc(100vh - var(--footer-height))
 }
 
@@ -187,7 +188,7 @@ body {
   a[download] {
     border: 1px outset var(--download);
     border-radius: var(--gap);
-    padding: 0.4rem var(--gap);
+    padding: var(--fill) var(--gap);
   }
 
   /* Header */
@@ -255,7 +256,7 @@ body {
       color: inherit;
       box-sizing: border-box;
       border: 1px outset #000;
-      border-radius: 0.2em;
+      border-radius: var(--fill);
       width: var(--footer-height);
       height: var(--footer-height);
       cursor: pointer;
@@ -463,7 +464,7 @@ code:not([class]) {
 }
 
 h2, h3 {
-  margin-top: 2em;
+  margin-top: 3.2rem;
 }
 
 h2 code:not([class]), /* :not([class]) needed for specificity */
@@ -499,7 +500,7 @@ code u * {
 aside,
 blockquote {
   background-color: #020;
-  padding: 0.4rem 1.6rem;
+  padding: var(--fill) 1.6rem;
   border-left: 1.6rem solid #040;
   box-sizing: border-box;
 }
@@ -660,8 +661,6 @@ div.credit:hover {
 }
 
 
-/* Footer */
-
 /* Ensure feedback aside on #intro page wraps nicely on all
    screen sizes
  */
@@ -700,8 +699,8 @@ button[data-name]:hover {
   transition: background-color 0ms;
 }
 
-/* MENU / MENU / MENU / MENU / MENU / MENU / MENU / MENU */
 
+/* MENU / MENU / MENU / MENU / MENU / MENU / MENU / MENU */
 
 #menu-icon {
   position: fixed;
@@ -736,12 +735,8 @@ button[data-name]:hover {
   position: fixed;
   top: var(--header-size);
   left: calc(-1 * var(--menu-width)); /* offscreen by default */
-  /* font-size: var(--menu-font-size); */
-
-  height: 100vh;
   width: var(--menu-width);
   background-color: var(--menu-bg);
-  border-right: #000;
   box-shadow: 1rem 0.2rem 1rem #0009;
   z-index: 9999;
 
@@ -765,7 +760,7 @@ button[data-name]:hover {
   }
 
   li {
-    margin-top: 0.4rem;
+    margin-top: var(--fill);
     border: var(--border) outset 1px;
     border-radius: var(--gap);
     color: var(--text);
@@ -781,7 +776,7 @@ button[data-name]:hover {
 
     a {
       display: inline-block;
-      padding: 0.4rem 1.6rem;
+      padding: var(--fill) 1.6rem;
       box-sizing: border-box;
 
       width: 100%;
@@ -870,7 +865,7 @@ details {
   );
 
   &[open] {
-    border-left-width: 0.4rem;
+    border-left-width: var(--fill);
     border-left-style: solid;
   }
 
