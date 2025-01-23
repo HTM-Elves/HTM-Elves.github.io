@@ -776,7 +776,7 @@ button[data-name]:hover {
 
     a {
       display: inline-block;
-      padding: var(--fill) 1.6rem;
+      padding: var(--gap) 1.6rem;
       box-sizing: border-box;
 
       width: 100%;
