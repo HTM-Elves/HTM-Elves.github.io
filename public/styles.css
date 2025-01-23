@@ -70,9 +70,8 @@
   --text:      var(--dark);
   --bg:        var(--white);
   --mixer:     var(--lighter);
-  --active:    var(--black);
+  --active:    var(--cta);
   --menu-bg:   var(--lightly);
-  --bright:    var(--white);
 
   --invert:   0; /* Used to invert SVG images in dark mode */
 
@@ -325,7 +324,7 @@ body {
     }
 
     & button:hover + span {
-      color: var(--bright);
+      color: var(--active);
     }
   }
 
@@ -772,7 +771,7 @@ button[data-name]:hover {
     color: var(--text);
 
     &:hover {
-      color: var(--bright);
+      color: var(--active);
     }
 
     &.target {
