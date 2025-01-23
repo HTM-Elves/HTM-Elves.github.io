@@ -1,6 +1,38 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12">
-	<title>
-		external link
-	</title>
-	<path fill="#9cf" d="M6 1h5v5L8.86 3.85 4.7 8 4 7.3l4.15-4.16zM2 3h2v1H2v6h6V8h1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1"/>
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  viewBox="0 0 12 12"
+
+  fill="#9cf"
+>
+  <g
+    transform-origin="50 50"
+  >
+    <path
+      d="
+      M 6 1
+      h 5
+      v 5
+      l -2 -2
+      l -4 4
+      l -1 -1
+      l 4 -4
+      l -2 -2
+
+      m -2 2
+      v 1
+      h -2
+      v 6
+      h 6
+      v -2
+      h 1
+      v 2
+      a 1 1 0 0 1 -1 1
+      h -6
+      a 1 1 0 0 1 -1 -1
+      v -6
+      a 1 1 0 0 1 1 -1
+      z
+      "/>
+  </g>
 </svg>

@@ -11,16 +11,40 @@
 
 const storage  = new Storage()
 
-const main     = document.getElementById("main")
+const main     = document.getElementById("content")
+const head     = document.getElementById("content-header")
+const foot     = document.getElementById("content-footer")
+
 const menu     = document.getElementById("menu")
 const icon     = document.getElementById("menu-icon")
 const list     = document.getElementById("menu-items")
-const sections = Array.from(document.querySelectorAll("section"))
-const foot     = document.getElementById("footer")
-const prev     = document.getElementById("previous")
-const prevName = document.getElementById("previous-name")
-const next     = document.getElementById("next")
-const nextName = document.getElementById("next-name")
+// Find radio buttons for Dark/Light, Paging/Scroll
+const controls = Array.from(menu.querySelectorAll(
+  "nav#menu label:has(input[type=radio])"
+))
+// Add icon and list to include all interactive menu elements
+controls.push(icon)
+controls.push(list)
+
+// Find all sections that have a `data-item` property
+const sections = Array.from(document.querySelectorAll(
+  "section[data-item]"
+))
+
+// Find Prev/Next buttons in both top and bottom nav bars
+const prev     = Array.from(document.getElementsByClassName(
+  "previous"
+))
+const prevName = Array.from(document.getElementsByClassName(
+  "previous-name"
+))
+const next     = Array.from(document.getElementsByClassName(
+  "next"
+))
+const nextName = Array.from(document.getElementsByClassName(
+  "next-name"
+))
+
 const toCredit = document.querySelectorAll("img[data-credits]")
 
 const CREDIT_REGEX = /\[([^\]]+)\]\(([^\)]+)\)/g
@@ -181,24 +205,29 @@ function hashChange() {
   main.scrollTo({ top })
 }
 
+// Update Prev/Next button states and names in top and bottom nav
 function setPreviousAndNext(hash) {
   const index = sectionIds.indexOf(hash)
   const isLast = (index === sectionIds.length - 1)
 
   if (index) {
-    prev.removeAttribute("disabled")
-    prevName.textContent = sectionNames[index - 1]
+    prev.forEach( element => element.removeAttribute("disabled"))
+    prevName.forEach( element => (
+      element.textContent = sectionNames[index - 1]
+    ))
   } else {
-    prev.setAttribute("disabled", true)
-    prevName.textContent = ""
+    prev.forEach(element => element.setAttribute("disabled",true))
+    prevName.forEach(element => element.textContent = "")
   }
 
   if (isLast) {
-    next.setAttribute("disabled", true)
-    nextName.textContent = ""
+    next.forEach(element => element.setAttribute("disabled",true))
+    nextName.forEach( element => element.textContent = "")
   } else {
-    next.removeAttribute("disabled")
-    nextName.textContent = sectionNames[index + 1]
+    next.forEach( element => element.removeAttribute("disabled"))
+    nextName.forEach( element => (
+      element.textContent = sectionNames[index + 1]
+    ))
   }
 }
 
@@ -357,10 +386,13 @@ function toggleMenu() {
 
   function closeMenu({ target }) {
     while (target) {
-      if (target === list || target === icon) {
+      if (controls.indexOf(target) < 0) {
+        target = target.parentNode
+      } else {
+        // Leave menu open if target was a menu item, the menu
+        // icon or a Dark/Light, Paging/Scroll input 
         break
       }
-      target = target.parentNode
     }
 
     if (target) {
@@ -373,16 +405,18 @@ function toggleMenu() {
 }
 
 
-// Navigating with the footer //
-foot.addEventListener("mouseup", goSection)
+// Navigating with the buttons in a nav bar //
+head && head.addEventListener("mouseup", goSection)
+foot && foot.addEventListener("mouseup", goSection)
 
+// Use class "next/previous" to determine which section to go to
 function goSection({ target }) {
-  let { id } = target
-  if (!id) {
+  let { classList } = target.closest("button")
+  if (!classList) {
     return
   }
-  id = id.replace("-name", "")
-  let direction = [0, "previous", 0, "next"].indexOf(id)
+  const className = classList[0].replace("-name", "")
+  let direction = [0, "previous", 0, "next"].indexOf(className)
   // -1, 1, 3
   if (direction < 0) {
     return
@@ -464,8 +498,9 @@ if (counter) {
 
 // Updating the selected menu item when scrolling through the
 // page in #scroll mode
-const debouncedScroll = debounce(updateMenuHighlight, 500)
+const debouncedScroll = debounce(updateMenuHighlight, 100)
 main.addEventListener("scroll", debouncedScroll)
+
 function updateMenuHighlight() {
   if (!document.querySelector("#scroll:checked")) { return }
   const scrollTop = main.scrollTop

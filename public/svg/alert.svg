@@ -3,10 +3,9 @@
   xmlns:xlink="http://www.w3.org/1999/xlink"
   viewBox="0 0 100 100"
   
-  stroke="#fff"
+  stroke="#000"
   stroke-width="5"
   stroke-linecap="round"
-  fill="#fff"
 >
   <g
     transform-origin="50 50"
@@ -82,10 +81,3 @@
     />
   </g>
 </svg>
-
-<!-- rx ry x-axis-rotation large-arc-flag sweep-flag dx dy -->
-
-<!-- 
-centre is at 50 57
-outer diameter is 46
- -->

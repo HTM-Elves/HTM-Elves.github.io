@@ -17,88 +17,96 @@ content="width=device-width, initial-scale=1.0"
 </head>
 
 <body>
-<main id="main">
+<main id="content">
 <header>
 <a href="https://$organization$.github.io"><img src="../public/svg/home.svg" alt="home"></a>
 <h1>$title$</h1>
 <h3>$subtitle$</h3>
 <h4>$month$</h4>
 </header>
+<nav
+  id="content-header"
+  aria-labelledby="content-header"
+>
+  <button type="button" class="previous" disabled>
+    <img src="../public/svg/prev.svg" alt="previous" draggable="false">
+  </button>
+  <span class="previous-name"></span>
+  <span class="spacer"></span>
+  <button type="button" class="next">
+    <img src="../public/svg/next.svg" alt="next" draggable="false">
+  </button>
+  <span class="next-name"></span>
+</nav>
 
 $body$
 
 <div class="spacer"></div>
-<footer id="footer">
-<button type="button" id="previous" disabled>&lt;</button>
-<span id="previous-name"></span>
+<footer id="content-footer">
+<button type="button" class="previous" disabled>
+  <img src="../public/svg/prev.svg" alt="prev" draggable="false">
+</button>
+<span class="previous-name"></span>
 <span class="spacer"></span>
-<button type="button" id="next">&gt;</button>
-<span id="next-name"></span>
+<button type="button" class="next">
+  <img src="../public/svg/next.svg" alt="next" draggable="false">
+</button>
+<span class="next-name"></span>
 </footer>
 </main>
 
 <nav
 id="menu"
+aria-labelledby="menu"
 class="open"
 >
-<div class="paging">
-<label
-title="Split into sections"
->
-<img src="../public/svg/pages.svg" alt="pages">
-<input
-type="radio"
-name="paging"
-id="pages"
-checked
->
-</label>
-<label
-title="Show as a single page"
->
-<img src="../public/svg/scroll.svg" alt="scroll">
-<input
-type="radio"
-name="paging"
-id="scroll"
->
-</label>
-</div>
-<svg
-id="menu-icon"
-viewBox="0 0 100 100"
-preserveAspectRatio="xMidYMid meet"
->
-<g
-class="menu"
-stroke-width="20"
-stroke-linecap="round"
->
-<path
-d="M5,20 L5,80 H95 L95,20 z"
-fill="#0000"
-stroke="none"
-/>
-<line
-x1="15"
-y1="20"
-x2="85"
-y2="20"
-/>
-<line
-x1="15"
-y1="50"
-x2="85"
-y2="50"
-/>
-<line
-x1="15"
-y1="80"
-x2="85"
-y2="80"
-/>
-</g>
-</svg>
+<div class="theme">
+  <label
+  title="Dark"
+  >
+  <img src="../public/svg/dark.svg" alt="dark">
+  <input
+  type="radio"
+  name="theme"
+  id="theme-dark"
+  checked
+  >
+  </label>
+  <label
+  title="Light"
+  >
+  <img src="../public/svg/light.svg" alt="light">
+  <input
+  type="radio"
+  name="theme"
+  id="theme-light"
+  >
+  </label>
+  </div>
+  <div class="paging">
+  <label
+  title="Split into sections"
+  >
+  <img src="../public/svg/pages.svg" alt="pages">
+  <input
+  type="radio"
+  name="paging"
+  id="pages"
+  checked
+  >
+  </label>
+  <label
+  title="Show as a single page"
+  >
+  <img src="../public/svg/scroll.svg" alt="scroll">
+  <input
+  type="radio"
+  name="paging"
+  id="scroll"
+  >
+  </label>
+  </div>
+<img src="../public/svg/hamburger.svg" alt="menu" id="menu-icon">
 
 <ul id="menu-items">
 </ul>
