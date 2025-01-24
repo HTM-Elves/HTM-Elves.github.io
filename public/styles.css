@@ -64,9 +64,12 @@
   --trouble:   #fc9;
   --warn:      #fbb;
   --code:      #0001;
+  --codeblock: #000c;
 
   /* Paging / Theme */
   --shadow:    #0008;
+  --subdue:    #fffc;
+  --subdued: linear-gradient(var(--subdue), var(--subdue));
 
   --text:      var(--dark);
   --bg:        var(--white);
@@ -108,6 +111,7 @@ body:has(#theme-dark:checked) {
   --selected:  #000;
   --radio-bg:  #fff2;
   --radiover:  #fff3;
+  --skip:      #666;
 
   /* Details */
   --alert:     #800;
@@ -124,8 +128,13 @@ body:has(#theme-dark:checked) {
   --tldr:      #004;
   --trouble:   #c60;
   --warn:      #630;
+  --code:      #fff1;
+  --codeblock: #0006;
+
   /* Paging / Theme */
   --shadow:    #000;
+  --subdue:    #000c;
+  --subdued:   linear-gradient(var(--subdue), var(--subdue));
 
   /* Links */
   --link-color:   #fc9;
@@ -470,7 +479,7 @@ h2, h3 {
 h2 code:not([class]), /* :not([class]) needed for specificity */
 h3 code:not([class]),
 h4 code:not([class]) {
-  font-size: 1.2em; /* Use em to increase _relative_ size */
+  font-size: 1em; /* Use em to ensure _relative_ size */
 }
 
 aside s,
@@ -507,7 +516,7 @@ blockquote {
 
 blockquote {
   background-color: #5555;
-  border-color: var(--lighter);
+  border-color: var(--mixer);
 }
 
 blockquote pre:has(code) {
@@ -853,16 +862,12 @@ div#repo {
 
 details {
   --nip: calc(var(--gap) * -1);
-  --bg-color: #fff;
-  border: 1px inset var(--bg-color);
+  --bg-color: var(--mid); /* default, if details has no class */
+  border: 1px solid var(--bg-color);
   margin: 3.2rem 0 1.6rem;
   padding: var(--gap);
+  background: var(--subdued), var(--bg-color);
   overflow: auto;
-  background-color: color-mix(
-    in oklab,
-    var(--bg-color),
-    var(--mixer)
-  );
 
   &[open] {
     border-left-width: var(--fill);
@@ -872,43 +877,47 @@ details {
   /* Don't number figures inside details, because they might
     be closed, which would upset the numbering system.
   */
-  figcaption::before {
+  & figcaption::before {
     content: "";
     counter-increment: fig 0;
   }
 
-  summary {
+  & summary {
     position: relative;
     font-size: 2rem;
-    height: 3.2rem;
+    min-height: fit-content;
     font-weight: bold;
     padding: var(--gap);
     margin: var(--nip);
     background-color: var(--bg-color)!important;
 
-    h2 {
+    & h2 {
       display: inline;
       font-size: 1.5rem;
     }
   }
 
-  summary::after {
+  & summary::after {
     display: inline-block;
     position: absolute;
     right: 0;
     width: 2.4rem;
     margin-right: var(--gap);
     filter: invert(var(--invert));
+
+    & code:not([class]) { /* :not([class]) is for specificity */
+      font-size: inherit;
+    }
   }
 
-  p:first-of-type {
+  & p:first-of-type {
     margin-top: 2.4rem;
   }
 
-  p:last-of-type {
+  & p:last-of-type {
     margin-bottom: var(--gap);
   }
-  ul {
+  & ul {
     box-sizing: border-box;
   }
 
@@ -1034,7 +1043,16 @@ details {
 
   /* Override prism for code inside a details element */
   :not(pre) > code[class*="language-"], pre[class*="language-"] {
-    background: var(--lighter);
+    background: var(--codeblock);
+  }
+
+  pre.skip {
+    background-color: var(--codeblock);
+    color: var(--skip);
+
+    & .skip {
+      background-color: transparent;
+    }
   }
 }
 
